@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义指令更改背景色</title>
+    <style type="text/css">
+        #app{
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-color="msg">
+        <input type="text" v-focus>
+
+    </div>
+
+<script type="text/javascript" src="../../static/js/vue.js"></script>
+<script type="text/javascript">
+    Vue.directive('color',{
+        bind:function (el, binding) {
+            el.style.backgroundColor=binding.value;//这个的binding.value能够获取v-color="msg"里面的值
+        }
+    });
+    const vm =new Vue({
+        el:'#app',
+        data:{
+          msg:'black',
+        },
+        methods:{
+
+        },
+        directives: {//局部指令
+            color: {
+                bind: function (el, binding) {
+                    el.style.backgroundColor = binding.value;
+                }
+            },
+            focus:{
+                inserted:function (el) {
+                    el.focus();
+                }
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>promise常用api</title>
+</head>
+<body>
+<script type="text/javascript">
+    /*
+    * promise 常用API-实例方法
+    *
+    * */
+    function foo() {
+        return new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                resolve(123);
+            },100);
+        });
+    };
+    foo().then(function (data) {
+        console.log(data)
+    })
+        .catch(function (data) {//如果then只有一个参数  则 catch是用来处理异常信息
+            console.log(data);
+        })
+        .finally(function () {
+            console.log('finished');
+        });
+
+</script>
+</body>
+</html>

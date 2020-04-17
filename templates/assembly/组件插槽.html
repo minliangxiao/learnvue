@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件插槽</title>
+</head>
+<body>
+<!--组件插槽是指 父主键向子组件传递 内容（模板里面的内容）-->
+<div id="app">
+    <alret-box>有bug发生</alret-box>
+    <alret-box></alret-box>
+
+</div>
+
+<script type="text/javascript" src="../../static/js/vue.js"></script>
+<script>
+    /* <slot></slot>  插槽标签 父组件可以传递内容到插槽标签里面*/
+    Vue.component('alret-box',{
+       template :`
+        <div>
+            <strong>ERROR</strong>
+            <slot>默认类容</slot>
+        </div>
+       `,
+    });
+
+    const  vm=new Vue({
+            el:'#app',
+    })
+</script>
+</body>
+</html>

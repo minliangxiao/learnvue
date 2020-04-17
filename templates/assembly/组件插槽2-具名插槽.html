@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>具名插槽</title>
+</head>
+<body>
+<div id="app">
+    <base-layout>
+        <p slot="header">这里渲染出来的事"header" 标签</p>
+        <p>这里渲染出来的事"main" 标签</p>
+        <p>这里渲染出来的事"main" 标签</p>
+        <p slot="footer">这里渲染出来的事"footer" 标签</p>
+    </base-layout>
+</div>
+
+<script type="text/javascript" src="../../static/js/vue.js"></script>
+<script>
+    /*运行后会发现将 父组件中的p 标签相应替换了*/
+    Vue.component('base-layout',{
+       template:`
+            <div>
+                <header>
+                    <slot name="header"> </slot>
+                </header>
+                <main>
+                    <slot > </slot>
+                </main>
+                <footer>
+                    <slot name="footer"> </slot>
+                </footer>
+
+            </div>
+       `,
+    })
+    const  vm=new Vue({
+        el:'#app',
+        data:{
+
+        },
+    })
+
+</script>
+</body>
+</html>

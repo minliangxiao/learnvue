@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>promise</title>
+</head>
+<body>
+<!--promise 能够解决异步调用的顺序性  传统的jquery异步调用时 要保证顺序需要嵌套调用这就容易出现时（回调地狱） -->
+
+<script type="text/javascript">
+    /*promise的基本使用方法*/
+    var p=new Promise(function (resolve,reject) {//两个参数类型都是function类型 resolve 表示成功执行，reject 表示出现异常执行
+        //这里用于实现异步任务
+        setTimeout(function () {
+            var  flag=true;
+            if (flag){
+                //正常情况
+                resolve('hello');
+            }else {
+                reject('出错');
+            }
+        },100);
+    });
+
+    p.then(function (data) {
+        console.log(data);
+    },function (data) {
+        console.log(data);
+    });//执行异步  两个函数参数分别代表了 resolve 和reject
+
+</script>
+</body>
+</html>

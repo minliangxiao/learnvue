@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fetch</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    fetch('http://localhost:8080/a1').then(data=>{
+        //text()方法属于fetchAPI的一部分，它返回一个Promise实列对象，用于获取后台返回的数据
+        return data.text();
+    }).then(data=>{  //第二个data 才能获取到的数实际据
+        console.log(data)
+    });
+    fetch('http://localhost:3000/books/456',{//456为参数
+        method:'get'
+    }).then(function (data) {
+        return data.text();
+    }).then(function (data) {
+        console.log(data)
+    })
+</script>
+</body>
+</html>

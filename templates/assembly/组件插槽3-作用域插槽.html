@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作用域插槽</title>
+    <style type="text/css">
+        .current{
+            color: orange;
+        }
+    </style>
+</head>
+<body>
+<!--作用域插槽
+ slot-scope 就是在父组件中能够获取到子组件的数据,
+ 应用场景：父组件对子组件的内容进行加工处理
+-->
+<div id="app">
+    <fruit-list :list="list">
+        <template slot-scope="slotPropes"><!--这里slotPropes能拿到子组件<slot>标签里面的属性-->
+            <strong v-if="slotPropes.info.id==2"  class="current">{{slotPropes.info.name}}</strong>
+            <span v-else>{{slotPropes.info.name}}</span>
+        </template>
+    </fruit-list>
+</div>
+<script type="text/javascript" src="../../static/js/vue.js"></script>
+<script>
+    Vue.component('fruit-list',{
+        props:['list'],
+        template:`
+            <div>
+                <li :key="item.id" v-for="item in list">
+                    <slot :info="item">{{item.name}}</slot>
+                </li>
+             </div>
+        `,
+    })
+
+    const  vm=new Vue({
+        el:'#app',
+        data:{
+            list:[{
+              id:1,
+              name:'apple',
+            },{
+                id:2,
+                name:'banana'
+            },{
+                id:3,
+                name:'orange'
+            }]
+        },
+    })
+</script>
+</body>
+</html>

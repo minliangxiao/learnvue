@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选项卡的小demo</title>
+    <style type="text/css">
+        .tab ul {
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+        }
+        .tab ul li {
+            box-sizing: border-box;
+            padding: 0;
+            float: left;
+            width: 100px;
+            height: 45px;
+            line-height: 45px;
+            list-style: none;
+            text-align: center;
+            border-top: 1px solid blue;
+            border-right: 1px solid blue;
+
+        }
+        .tab ul li:first-child {
+            border-left: 1px solid blue;
+        }
+        .tab ul li.active {
+            background-color: orange;
+        }
+        .tab div {
+            width: 500px;
+            height: 300px;
+            display: none;
+            text-align: center;
+            font-size: 30px;
+            line-height: 300px;
+            border: 1px solid blue;
+            border-top: 0px;
+        }
+        .tab div.current {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="tab">
+            <!--  tab栏  -->
+            <ul>
+                <li  @click="change(index)" :class="currentIndex==index?'active':''" :key="item.id" v-for="(item,index) in list"><span v-text="item.title"></span></li>
+
+            </ul>
+            <!--  对应显示的图片 -->
+            <div :class='currentIndex==index?"current":""' :key="item.id" v-for="(item,index) in list"><img :src="item.path"></div>
+        </div>
+    </div>
+<script type="text/javascript" src="../../static/js/vue.js"></script>
+<script type="text/javascript" >
+    /*
+    * 知识点！！一般遍历一个对象这种对象时候最好设置一个id 位，或者index位
+    * */
+    const vue = new Vue({
+        el:'#app',
+        data:{
+            currentIndex: 0, //用于标注当前选中的索引
+            list: [{
+                id:1,
+                title:'apple',
+                path:'../../static/imgs/apple.png'
+            }, {
+                    id:2,
+                    title:'orange',
+                    path:'../../static/imgs/orange.png'
+                },{
+                id: 3,
+                title:'lemon',
+                path:'../../static/imgs/lemon.png'
+            }]
+
+        },
+        methods:{
+            change: function (index) {
+                //在这里实现选项卡切换操作：本质就是操作类名（通过currentIndex）
+                this.currentIndex=index;
+
+            }
+        }
+    });
+</script>
+</body>
+</html>

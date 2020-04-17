@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>属性绑定标签</title>
+</head>
+<body>
+<div id="app">
+    <a v-bind:href="url">百度</a>
+<!--    简写为-->
+    <a :href="url2">b站</a>
+
+</div>
+<script type="text/javascript" src="/static/js/vue.js"></script>
+<script type="text/javascript">
+    const vm = new Vue({
+        el:'#app'
+       ,data:{
+            url:'http://www.baidu.com'
+           ,url2:'http://www.bilibili.com'
+        }
+       ,
+    });
+</script>
+</body>
+</html>

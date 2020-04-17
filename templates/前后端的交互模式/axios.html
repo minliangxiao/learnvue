@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>axios的第一个事列</title>
+</head>
+<body>
+<script type="text/javascript " src="js/axios.js"></script>
+<script type="text/javascript">
+    axios.get('http://localhost:3000/adata').then(ret=>{
+        console.log(ret.data)
+    })
+//    axios  get的传参
+    axios.get('/adata?id=123').then(ret=>{
+        console.log(ret.data);
+    });
+     // get restful
+    axios.get('/adata/123').then(ret=>{
+        console.log(ret.data);
+    });
+    //get params
+    axios.get('/adata/123',{
+        params:{
+            id:123
+        }
+    }).then(ret=>{
+        console.log(ret.data);
+    })
+   // axios post传参
+    axios.post('/adata/123',{
+       uname:'lisi',   //这里的参数默认为 json格式
+        pwd:'123'
+    }).then(ret=>{
+        console.log(ret.data);
+    })
+
+    //post 传输表单数据
+    var params=new URLSearchParams();
+    params.append('uname','lisi');
+    params.append('pwd','1234');
+    axios.post('http://localhost:3000/axios',params).then(ret=>{
+        console.log(ret.data);
+    });
+
+    //axios的全局基本配置
+
+    axios.defaults.baseURL='http://localhost:3000/'; //设置全局的基本url地址
+    axios.defaults.headers['mytoken']='hello'; //设置请求头信息
+    axios.defaults.timeout=3000;  //设置超时时间
+    axios.get('axios-json').then(ret=>{
+        console.log(ret.data)
+    });
+
+
+
+</script>
+</body>
+</html>

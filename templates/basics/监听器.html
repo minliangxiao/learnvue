@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>监听器demo</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <span>名：</span>
+            <span>
+                <input type="text" v-model="firstName">
+            </span>
+        </div>
+        <div>
+            <span>性：</span>
+            <span>
+                <input type="text" v-model="lastName">
+            </span>
+        </div>
+        <div>{{fullName}}</div>
+    </div>
+
+
+<script type="text/javascript" src="../../static/js/vue.js"></script>
+<script type="text/javascript">
+    /*
+      监听器的案列
+    * */
+    const vue =new Vue({
+        el:'#app',
+        data:{
+            firstName:'Jim',
+            lastName:'Green',
+            fullName:'Jim Green'
+        },
+        watch:{//监听器
+          firstName: function (val) {//监听当firstName数据发生变化时的操作，其中val表示变化后的firstName
+                  this.fullName = val + " " + this.lastName;
+          } ,
+          lastName: function (val) {
+              this.fullName=this.firstName + " " +val;
+          }
+        }
+
+    });
+</script>
+</body>
+</html>

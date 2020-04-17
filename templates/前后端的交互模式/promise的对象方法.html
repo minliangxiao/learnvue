@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>promise的对象方法</title>
+</head>
+<body>
+
+<script type="text/javascript">
+    /*
+    * promise 常用的对象方法
+    * */
+    // console.dir(Promise);
+
+    function queryData(url) {
+        var p=new Promise(function (resolve, reject) {
+            //对象
+            var xhr=new XMLHttpRequest();
+            //回调函数
+            // if (xhr.readyState!=4) return;
+            if (xhr.readyState==4&&xhr.status==200){
+                //处理正常情况
+                resolve(xhr.responseText);
+            }else {
+                //处理异常
+                reject('服务器异常');
+            }
+            //准备发送前的参数
+            xhr.open('get',url);
+            //发送
+            xhr.send(null)
+
+        });
+        return p;
+    };
+
+    var p1=queryData('http://localhost:8080/a1');
+    var p2=queryData('http://localhost:8080/a1');
+    var p3=queryData('http://localhost:8080/a1');
+    //这个方法能够打印全部的返回结果
+    Promise.all([p1,p2,p3]).then(function (result) {
+        console.log(result);
+    });
+    //这个方法能得到全部的结果  但是只会打印最快的那个结果
+    Promise.race([p1,p2,p3]).then(function (result) {
+        console.log(result)
+    })
+
+</script>
+</body>
+</html>

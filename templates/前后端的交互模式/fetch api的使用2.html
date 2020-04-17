@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fetch api 2</title>
+</head>
+<body>
+<script type="text/javascript">
+   /* fetch('http://localhost:3000/books?id=123',{
+        method:'get'
+    }).then(function (data) {
+        return data.text();
+    }).then(function (data) {
+        console.log(data);
+    })*/
+   //用restful风格
+   /* fetch('http://localhost:3000/books/456',{
+        method:'get',
+    }).then(function (data) {
+        return data.text();
+    }).then(function (data) {
+        console.log(data)
+    })*/
+    //post请求
+    /*fetch('http://localhost:3000/books',{
+        method:'post',
+        body:'uname=lisi&pwd=123',
+        headers:{
+            'Content-Type':'application/x-www-form-urlencoded'  //headers是必须设置的
+        }
+    }).then(function (data) {
+        return data.text();
+    }).then(function (data) {
+        console.log(data)
+    })*/
+    //post传递json格式数据
+   fetch('http://localhost:3000/books',{
+       method:'post',
+       body:JSON.stringify({
+           uname:'张三',
+           pwd:'456'
+       }),
+       headers:{
+           'Content-Type': 'application/json' ,//headers是必须设置的
+       }
+   }).then(function (data) {
+       return data.text();/* 如果返回的是json格式的数据  则用 data.json()*/
+   }).then(function (data) {
+       console.log(data)
+   })
+
+
+
+</script>
+</body>
+</html>

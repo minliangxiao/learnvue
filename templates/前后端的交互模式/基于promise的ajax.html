@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基于promise的ajax</title>
+</head>
+<body>
+<script type="text/javascript">
+    function queryData(url) {
+        var p=new Promise(function (resolve, reject) {
+            //对象
+        var xhr=new XMLHttpRequest();
+            //回调函数
+            // if (xhr.readyState!=4) return;
+        if (xhr.readyState==4&&xhr.status==200){
+            //处理正常情况
+            resolve(xhr.responseText);
+        }else {
+            //处理异常
+            reject('服务器异常');
+        }
+        //准备发送前的参数
+           xhr.open('get',url);
+        //发送
+            xhr.send(null)
+
+        });
+        return p;
+    };
+    //如果要发送多个异步请求 可以通过操作多个链式.then()来写 这样就可以解决回调地狱
+    /*
+    * then 函数返回参数
+    *   返回promise实列对象 则下一个then函数可以使用 下一个then可以得到上一个then的处理结果
+    *    返回的是普通值则下一个then可以直接调用 返回值
+    * */
+    queryData('http://localhost:8080/data').then(function (data) {
+        console.log(data)
+    },function (info) {
+        console.log(info)
+    })
+</script>
+</body>
+</html>

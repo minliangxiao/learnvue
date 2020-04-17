@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>动态绑定样式的demo</title>
+    <style type="text/css">
+        .active{
+            border:1px solid red;
+            width:100px;
+            height: 100px;
+        }
+        .error{
+            background-color: orange;
+        }
+        .test{
+            color: aqua;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <h2>对象形式</h2>
+    <div :class="{active:isActive,error:isError}">动态绑定</div>
+    <button @click="handle">动态切换</button>
+    <h2>数组形式</h2>
+    <div :class="[activeClass,errorClass]">动态绑定</div>
+    <button @click="handle2">动态切换</button>
+    <h2>数组中套用对象，同样对象也可以这样操作</h2>
+    <div :class="[activeClass,{error:isError,test:isTest}]">动态绑定</div>
+    <h2>对象简化操作</h2>
+    <div :class='objClasses'>动态绑定</div>
+    <h2>数组简化操作</h2>
+    <div :class='arryClasses'>动态绑定</div>
+</div>
+<script type="text/javascript" src="/static/js/vue.js"></script>
+<script type="text/javascript" >
+    /*动态样式绑定*/
+    /*
+    * 其实还是通过v-bind标签动态的绑定class属性，底层原理还是运用了v-bind的绑定标签属性的原理
+    * */
+    const vue = new Vue({
+    el:'#app',
+    data:{
+        isActive:true,
+        isError:true,
+        isTest:true,
+        activeClass:'active',
+        errorClass:'error',
+        objClasses: {
+            active:true,
+            error:true,
+            test:true
+        },
+        arryClasses:['active','error','test' ]
+
+    },
+    methods:{
+        handle:function () {
+            this.isActive=!this.isActive;
+            this.isError=!this.isError;
+        },
+        handle2:function () {
+            this.activeClass="";
+            this.errorClass="";
+        }
+    }
+    });
+
+</script>
+</body>
+</html>
