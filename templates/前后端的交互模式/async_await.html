@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>async/await的基本用法</title>
+</head>
+<body>
+<!--
+    async/await是es7 引入的新语法，可以更加方便的进行异步操作
+    async关键字用于函数上（async函数的返回值是promise实例对象）
+    await关键字用于async函数当中（await可以得到异步的结果）
+
+-->
+<script type="text/javascript" src="js/axios.js"></script>
+<script type="text/javascript">
+    async  function queryData() {//用async/await可以不调用.then 更简洁 同样返回数据ret是一个对象 而ret.data则是返回的数据
+        var ret =await axios.get('http://localhost:3000/adata');
+        console.log(ret.data);
+    };
+    queryData();
+</script>
+
+</body>
+</html>

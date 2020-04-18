@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>axios api 2</title>
+</head>
+<body>
+<script type="text/javascript" src="js/axios.js"></script>
+<script>
+    /*
+        axios 拦截器
+     */
+    //请求拦截器  （就是发送请求之前拦截的）
+    axios.interceptors.request.use(function (config) {
+        console.log(config.url);
+        config.headers.mytoken='nihao';
+        return config;
+    },function (err) {
+        console.log(err);
+    });
+
+    axios.get('http://localhost:3000/adata').then(data=>{
+        console.log(data.data);
+    });
+//    响应拦截器  （就是后台响应回来的数据必须经过的 拦截器）
+    axios.interceptors.response.use(function (ref) {
+        console.log(ref);  //和普通的axios请求一样 ref并不是直接响应回来的数据  而是一个对象 ref.data才是数据
+        return ref;
+    },err=>{
+        console.log(err)
+    })
+
+
+</script>
+</body>
+</html>
