@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编程式导航</title>
+</head>
+<body>
+<div id="app">
+<!--
+    声明式导航： 通过点击链接实现导航的方式，叫做声明式导航
+    编程式导航： 通过调用JavaScript形式的API实现导航的方式，叫做编程导航（如：location.href）
+
+    vue中的编程导航 this.$router.push('hash地址)  this.$router.go(n)
+-->
+    <router-link to="/user/1">User1</router-link>
+    <router-link to="/user/2">User2</router-link>
+    <router-link :to="{ name: 'user', params: {id: 3} }">User3</router-link>
+    <router-link to="/register">Register</router-link>
+
+    <!-- 路由占位符 -->
+    <router-view></router-view>
+
+</div>
+<script type="text/javascript" src="../../static/js/vue.js"></script>
+<script type="text/javascript" src="js/vue-router.js"></script>
+<script type="text/javascript">
+    const User={
+      props: ['id','uname','age'],
+      template:`
+        <div>
+        <h1>User 组件--用户id为：{{id}} --姓名为：{{uname}} --年龄为：{{age}} </h1>
+        <button @click="goRegister">跳转到注册页面</button>
+        </div>
+      `,//注意组件是不支持并列关系的
+      methods: {
+          goRegister:function () {
+              this.$router.push('/register')
+          }
+      }
+
+    };
+
+    const Register = {
+        template: `<div>
+          <h1>Register 组件</h1>
+          <button @click="goBack">后退</button>
+        </div>`,
+        methods: {
+            goBack() {
+                this.$router.go(-1)
+            }
+        }
+    }
+    // 创建路由实例对象
+    const router = new VueRouter({
+        // 所有的路由规则
+        routes: [
+            { path: '/', redirect: '/user' },
+            {
+                // 命名路由
+                name: 'user',
+                path: '/user/:id',
+                component: User,
+                props: route => ({ uname: 'zs', age: 20, id: route.params.id })
+            },
+            { path: '/register', component: Register }
+        ]
+    })
+    const vm=new Vue({
+        el:'#app',
+        data:{},
+        router
+    })
+</script>
+</body>
+</html>

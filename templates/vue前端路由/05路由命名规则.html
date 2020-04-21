@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-router的路由命名规则</title>
+</head>
+<body>
+<div id="app">
+    <!--精华点 :to=""-->
+    <router-link :to="{name:'user',params:{id:1}}">User1</router-link>
+    <router-link :to="{name:'user',params:{id:2}}">User2</router-link>
+    <router-link :to="{name:'user',params:{id:3}}">User3</router-link>
+    <router-link to="/register">Register</router-link>
+
+    <!--路由占位符-->
+    <router-view></router-view>
+</div>
+
+<script type="text/javascript" src="../../static/js/vue.js"></script>
+<script type="text/javascript" src="js/vue-router.js"></script>
+<script type="text/javascript">
+    const User={
+        props: ['id', 'uname', 'age'],
+        template: '<h1>User 组件 -- 用户id为: {{id}} -- 姓名为:{{uname}} -- 年龄为：{{age}}</h1>'
+
+    };
+    const Register = {
+        template: '<h1>Register 组件</h1>'
+    };
+    const router=new VueRouter({
+
+        routes:[
+            {
+                name:'user',//精华点
+                path:'/user/:id',
+                component: User,
+                props: route=>({uname:'lisi',age:23,id:route.params.id})
+            },
+            {path:'/register',component:Register}
+        ]
+    })
+    const  vm=new Vue({
+        el:'#app',
+        data:{},
+        router
+    })
+</script>
+</body>
+</html>

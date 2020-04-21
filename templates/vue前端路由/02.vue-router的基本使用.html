@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-router的基本使用</title>
+</head>
+<body>
+<div id="app">
+    <!--1. <router-link>
+        router-link 是vue中提供的标签，默认会被渲染为a标签
+        to 属性默认渲染为href属性
+        to 属性的值默认会被渲染为 #开头的hash 地址
+    -->
+    <router-link to="/user">User</router-link>
+    <router-link to="/register">Register</router-link>
+    <!--2.<router-view>
+        router-view路由占位符
+        将来通过路由规则匹配到的组件，将会被渲染到router-view所在的位置
+    -->
+    <router-view></router-view>
+</div>
+
+<script type="text/javascript" src="../../static/js/vue.js"></script>
+<script type="text/javascript" src="./js/vue-router.js"></script>
+<script type="text/javascript">
+    //3.创建需要挂载组件
+    const User = {
+        template: `<h1>User 组件</h1>`
+    }
+    const Register = {
+        template: `<h1>Register 组件</h1>`
+    }
+
+    //4.创建vue router实列对象
+    const router = new VueRouter({
+        //所有路由规则
+        routes: [
+            {path:'/',redirect:'/user'},//重定向 当用户访问 / 路径时 就重定向到 /user 路径下
+            {path: '/user', component: User},
+            {path: '/register', component: Register}
+        ]
+    })
+    const vm = new Vue({
+        el: '#app',
+        data: {},
+        //5.挂在vue router对象到vue组件中
+        router: router,
+    })
+</script>
+</body>
+</html>

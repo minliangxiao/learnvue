@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模拟路由</title>
+</head>
+<body>
+<div id="app">
+    <a href="#/zhuye">主页</a>
+    <a href="#/keji">科技</a>
+    <a href="#/caijing">财经</a>
+    <a href="#/yule">娱乐</a>
+
+    <component :is="comName"></component>
+</div>
+
+<script type="text/javascript" src="../../static/js/vue.js"></script>
+<script type="text/javascript">
+    /*
+    * 手动实现模拟前端路由
+    * */
+
+    //组件
+    const  zhuye={
+        template:`<h1>主页信息</h1>`
+    };
+    const  keji={
+        template:`<h1>科技信息</h1>`
+    };
+    const  caijin={
+        template:`<h1>财经信息</h1>`
+    };
+    const  yule={
+        template:`<h1>娱乐信息</h1>`
+    };
+
+    const vm=new Vue({
+        el:'#app',
+        data:{
+            comName:'zhuye',
+        },
+        //注册私有组件
+        components:{
+            zhuye,
+            keji,
+            caijin,
+            yule,
+        }
+    })
+
+    //监听window的onhashchange事件，根据获取的最新的hash值，切换要显示的主键名称
+    window.onhashchange=function () {
+        console.log(location.hash);
+        switch (location.hash.slice(1)) {
+            case '/zhuye':
+                vm.comName = 'zhuye';
+                break;
+            case '/keji':
+                vm.comName = 'keji';
+                break;
+            case '/caijing':
+                vm.comName = 'caijin';
+                break;
+            case '/yule':
+                vm.comName = 'yule';
+                break;
+
+        }
+    }
+
+</script>
+</body>
+</html>

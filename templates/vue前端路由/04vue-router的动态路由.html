@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-router的动态路由</title>
+</head>
+<body>
+<div id="app">
+
+    <router-link to="/user/1">User1</router-link>
+    <router-link to="/user/2">User2</router-link>
+    <router-link to="/user/3">User3</router-link>
+    <router-link to="/user/4">User4</router-link>
+    <router-link to="/register">Register</router-link>
+    <router-link to="/register/1">Register1</router-link>
+    <router-link to="/register/2">Register2</router-link>
+    <router-link to="/register/3">Register3</router-link>
+    <router-link to="/admin/1">admin1</router-link>
+    <router-link to="/admin/2">admin2</router-link>
+    <router-link to="/admin/3">admin3</router-link>
+
+
+    <router-view></router-view>
+
+</div>
+
+<script type="text/javascript" src="../../static/js/vue.js"></script>
+<script type="text/javascript" src="./js/vue-router.js"></script>
+<script>
+    const User = {
+        template: '<h1>User 组件 -- 用户id为: {{$route.params.id}}</h1>'
+    };
+    const admin = {
+        props: ['id', 'uname', 'age'],
+        template: `
+        <div>
+         <h1>User 组件 -- 管理员id为: {{id}} -- 姓名为:{{uname}} -- 年龄为：{{age}}</h1>
+        </div>
+      `
+    };
+    const Register = {
+        template: `
+                        <h1>Register 组件</h1>
+                  `
+    };
+    const Register2 = {
+        props: ['id'],
+        template: `
+                        <h1>Register 组件的id为：{{id}}</h1>
+                  `
+    };
+    const router = new VueRouter({
+        //注意这里是routes   不是routers
+        routes: [
+            // {path:'/',redirect:'/user'},
+            // {path:'/user',component:User},
+            {path: '/user/:id', component: User}, //动态路由
+            {path: '/register', component: Register},
+            {path: '/register/:id', component: Register2, props: true},//传递参数的动态路由  重点看Register2里面
+            //传参路由高级点 细节点直接将这个函数作为静态参数传递给组件
+            {path: '/admin/:id', component: admin, props:route=> ({id: route.params.id, uname: 'huang', age: 23})}
+        ]
+    });
+    const vm = new Vue({
+        el: '#app',
+        data: {},
+        router
+    });
+</script>
+</body>
+</html>

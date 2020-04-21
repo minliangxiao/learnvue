@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-router的嵌套路由</title>
+</head>
+<body>
+<div id="app">
+
+    <router-link to="/user">User</router-link>
+    <router-link to="/register">Register</router-link>
+    <router-view></router-view>
+</div>
+
+<script type="text/javascript" src="../../static/js/vue.js"></script>
+<script type="text/javascript" src="./js/vue-router.js"></script>
+<script type="text/javascript">
+    const User = {
+        template: `<h1>User 组件</h1>`
+    }
+    const Register = {
+        template: `<div>
+                        <h1>Register 组件</h1>
+                        <hr/>
+
+                       <router-link to="/register/tab1">tab1</router-link>
+                       <router-link to="/register/tab2">tab2</router-link>
+
+                       <router-view></router-view>
+
+                  </div>`
+    }
+
+    const Tab1={
+        template:`<h3>this is tab1</h3>`
+    };
+    const Tab2={
+        template:`<h3>this is tab2</h3>`
+    };
+
+    const router = new VueRouter({
+        routes: [
+            {path:'/',redirect:'/user'},
+            {path: '/user', component: User},
+            //路由嵌套（在一个路由里面再嵌套一个子路由）
+            {path: '/register', component: Register,children:[
+                    {path:'/register/tab1',component:Tab1},
+                    {path: '/register/tab2',component: Tab2}
+                ] }
+        ]
+    })
+    const vm = new Vue({
+        el: '#app',
+        data: {},
+        router: router,
+    })
+</script>
+</body>
+</html>
